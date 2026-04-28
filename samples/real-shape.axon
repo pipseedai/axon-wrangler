@@ -9,10 +9,12 @@ readAll(site and geoCity == "Demo City").sort("dis").toRecList.map(p => do
     key: if (p->id != null) p->id else na()
   }
 
-  grid: readAll(equip and siteRef == p->id)
+  grid: readAll(equip and (meter or status or thermometer or iaq or ups or point) and siteRef == site->id and equipRef != null)
     .find(e => e->ahu == true)
     .addMeta({checked: true, stale: false})
     .toGrid
+
+  selectedPoint: points[args->index]
 
   if (grid != null and p["curVal"] >= 10) do
     return {info: info, grid: grid}
