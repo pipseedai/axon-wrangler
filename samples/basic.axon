@@ -1,0 +1,15 @@
+// Axon Wrangler syntax-colour smoke sample
+read(site).map(site => do
+  dis: site->dis
+  id: @p:demo-site-123
+  area: 42.5
+  enabled: true
+  note: "quoted text with \"escape\""
+  if (enabled and area > 10) do
+    debug("large site")
+  else do
+    debug("small site")
+  end
+end)
+
+/* block comments are highlighted conservatively */

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Axon",
+  "scopeName": "source.axon",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#refs" },
+    { "include": "#numbers" },
+    { "include": "#constants" },
+    { "include": "#keywords" },
+    { "include": "#function-calls" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.axon",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.axon",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.axon",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.axon",
+              "match": "\\\\(?:[\\\\\"/bfnrt]|u[0-9A-Fa-f]{4})"
+            }
+          ]
+        }
+      ]
+    },
+    "refs": {
+      "patterns": [
+        {
+          "name": "constant.other.reference.axon",
+          "match": "@[A-Za-z0-9_:.~-]+"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.axon",
+          "match": "(?<![A-Za-z0-9_])-?(?:\\d+\\.\\d+|\\d+)(?:[eE][+-]?\\d+)?(?![A-Za-z0-9_])"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.axon",
+          "match": "\\b(?:true|false|null|na|marker|remove)\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.axon",
+          "match": "\\b(?:do|end|if|else|try|catch|throw|return|break|continue)\\b"
+        },
+        {
+          "name": "keyword.operator.word.axon",
+          "match": "\\b(?:and|or|not)\\b"
+        }
+      ]
+    },
+    "function-calls": {
+      "patterns": [
+        {
+          "name": "entity.name.function.axon",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b(?=\\s*\\()"
+        }
+      ]
+    }
+  }
+}
