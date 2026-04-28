@@ -1,0 +1,16 @@
+.vscode/**
+.github/**
+.git/**
+.goblin/**
+node_modules/**
+src/**
+test/**
+dist/test/**
+docs/**
+*.vsix
+.gitignore
+AGENTS.md
+AGENT_WORKFLOW.md
+PROJECT.md
+ROADMAP.md
+tsconfig.json
