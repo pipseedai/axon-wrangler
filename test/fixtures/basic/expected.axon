@@ -1,0 +1,3 @@
+read(site).map(s => do
+  name: s->dis
+end)

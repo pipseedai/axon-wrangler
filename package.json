@@ -1,0 +1,52 @@
+{
+  "name": "axon-wrangler",
+  "displayName": "Axon Wrangler",
+  "description": "Conservative VS Code helpers for SkySpark Axon.",
+  "version": "0.0.1",
+  "publisher": "pipseedai",
+  "private": true,
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters"
+  ],
+  "activationEvents": [
+    "onLanguage:axon",
+    "onCommand:axonWrangler.prettyPrint"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "axon",
+        "aliases": [
+          "Axon",
+          "axon"
+        ],
+        "extensions": [
+          ".axon"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "axonWrangler.prettyPrint",
+        "title": "Axon Wrangler: Pretty Print"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test dist/test/**/*.test.js",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.5.3"
+  }
+}

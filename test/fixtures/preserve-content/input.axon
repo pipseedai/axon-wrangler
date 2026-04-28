@@ -1,0 +1,3 @@
+// keep comment text and quoted spaces
+msg: "  do not trim inside strings  "  
+/* block-ish text is untouched by v0 */
