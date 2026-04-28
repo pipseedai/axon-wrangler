@@ -72,13 +72,21 @@ test("Axon TextMate grammar scopes real-shaped chained calls, keys, operators, a
   assertToken(scopedText, "addMeta", "entity.name.function.method.axon");
   assertToken(scopedText, "toGrid", "entity.name.function.method.axon");
 
-  for (const key of ["info", "title", "id", "dis", "name", "val", "key", "grid", "checked", "stale"]) {
+  for (const key of ["info", "title", "id", "dis", "name", "val", "key", "grid", "selectedPoint", "checked", "stale"]) {
     assertToken(scopedText, key, "variable.parameter.key.axon");
+  }
+
+  for (const tag of ["equip", "meter", "status", "thermometer", "iaq", "ups", "point", "siteRef", "equipRef"]) {
+    assertToken(scopedText, tag, "support.type.haystack-tag.axon");
   }
 
   for (const operator of ["=>", "->", "==", "!=", ">="]) {
     assertToken(scopedText, operator, "keyword.operator.axon");
   }
+
+  assertToken(scopedText, "[", "punctuation.section.brackets.begin.axon");
+  assertToken(scopedText, "]", "punctuation.section.brackets.end.axon");
+  assertToken(scopedText, "curVal", "string.quoted.double.axon");
 
   assertToken(scopedText, "@p:demo-site-123", "constant.other.reference.axon");
   assertToken(scopedText, "null", "constant.language.axon");
@@ -86,7 +94,6 @@ test("Axon TextMate grammar scopes real-shaped chained calls, keys, operators, a
   assertToken(scopedText, "false", "constant.language.axon");
   assertToken(scopedText, "na", "constant.language.axon");
   assertToken(scopedText, "10", "constant.numeric.axon");
-  assertToken(scopedText, "curVal", "string.quoted.double.axon");
 });
 
 function tokenizeLines(grammar: Awaited<ReturnType<typeof loadAxonGrammar>>, sourceLines: string[]): ScopedToken[] {

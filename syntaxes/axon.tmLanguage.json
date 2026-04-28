@@ -4,12 +4,14 @@
   "scopeName": "source.axon",
   "patterns": [
     { "include": "#comments" },
+    { "include": "#bracket-access" },
     { "include": "#strings" },
     { "include": "#refs" },
     { "include": "#numbers" },
     { "include": "#constants" },
     { "include": "#keywords" },
     { "include": "#dict-keys" },
+    { "include": "#haystack-tags" },
     { "include": "#operators" },
     { "include": "#method-calls" },
     { "include": "#function-calls" }
@@ -116,6 +118,40 @@
           "captures": {
             "1": { "name": "entity.name.function.axon" }
           }
+        }
+      ]
+    },
+    "haystack-tags": {
+      "patterns": [
+        {
+          "name": "support.type.haystack-tag.axon",
+          "match": "(?<![A-Za-z0-9_>.])\\b(?:ahu|equip|equipRef|iaq|meter|point|site|siteRef|status|thermometer|ups)\\b(?!\\s*(?:[:(]|->))"
+        }
+      ]
+    },
+    "bracket-access": {
+      "patterns": [
+        {
+          "name": "meta.bracket.access.axon",
+          "begin": "\\[",
+          "beginCaptures": {
+            "0": { "name": "punctuation.section.brackets.begin.axon" }
+          },
+          "end": "\\]",
+          "endCaptures": {
+            "0": { "name": "punctuation.section.brackets.end.axon" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#refs" },
+            { "include": "#numbers" },
+            { "include": "#constants" },
+            { "include": "#keywords" },
+            { "include": "#operators" },
+            { "include": "#method-calls" },
+            { "include": "#function-calls" },
+            { "include": "#haystack-tags" }
+          ]
         }
       ]
     }
