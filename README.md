@@ -10,8 +10,8 @@ This scaffold provides:
 
 - VS Code extension metadata and TypeScript build scripts
 - `.axon` language registration
-- conservative TextMate syntax colouring for comments, strings, numbers, refs, keywords/block words, constants, and function-ish calls
-- `samples/basic.axon` as a manual syntax-colour smoke file
+- conservative TextMate syntax colouring for comments, strings, numbers, refs, keywords/block words, constants, operators/arrows, dict/tag keys, and function/method-ish calls
+- `samples/basic.axon` and `samples/real-shape.axon` as syntax-colour smoke files
 - `Axon Wrangler: Pretty Print` command (`axonWrangler.prettyPrint`)
 - a conservative pretty-printer with fixture-based tests
 
@@ -45,17 +45,25 @@ Run tests:
 npm test
 ```
 
-This compiles TypeScript, runs fixture tests for `prettyPrintAxon`, and runs a TextMate tokenization smoke test against `syntaxes/axon.tmLanguage.json`.
+This compiles TypeScript, runs fixture tests for `prettyPrintAxon`, and runs TextMate tokenization tests against `syntaxes/axon.tmLanguage.json`, including the sanitized real-shaped Axon sample.
+
+To run only the syntax-colour tokenization self-test:
+
+```sh
+npm run test:grammar
+```
+
+This verifies emitted TextMate scopes for representative comments, strings, numbers, refs, keywords, chained method/function-ish calls, operators/arrows, dict/tag keys before `:`, and known literals. It does not prove theme colours visually distinguish those scopes; use the manual check below only for final eyeballing in a real VS Code theme.
 
 ## Manual syntax-colour testing
 
 1. Open this repo in VS Code.
 2. Run `npm install` if needed.
 3. Press `F5` to launch an Extension Development Host.
-4. In the Extension Development Host, open `samples/basic.axon` or create another `.axon` file.
-5. Confirm comments, strings, numbers, refs such as `@p:demo-site-123`, block words such as `do`/`end`, constants such as `true`, and function-ish calls such as `read(...)` have visible syntax colouring.
+4. In the Extension Development Host, open `samples/basic.axon`, `samples/real-shape.axon`, or create another `.axon` file.
+5. Confirm the active VS Code theme visibly distinguishes the scoped shapes that `npm run test:grammar` already verifies: comments, strings, numbers, refs such as `@p:demo-site-123`, block words such as `do`/`end`, constants such as `true`/`false`/`null`, operators/arrows such as `=>`/`->`/`==`, dict/tag keys before `:`, and chained method-ish calls such as `.sort(...)`/`.addMeta(...)`/`.toGrid`.
 
-The v0 grammar is intentionally conservative. It does not fully parse Axon or attempt semantic highlighting; it only provides stable TextMate scopes for the obvious lexical shapes covered by the test sample.
+The v0 grammar is intentionally conservative. It does not fully parse Axon or attempt semantic highlighting; it only provides stable TextMate scopes for the obvious lexical shapes covered by the automated tokenization samples. Visual theme contrast remains a manual VS Code check.
 
 ## Pretty-print testing
 

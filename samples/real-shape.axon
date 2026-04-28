@@ -1,0 +1,20 @@
+// Sanitized Axon-shaped sample from real syntax-colour feedback
+readAll(site and geoCity == "Demo City").sort("dis").toRecList.map(p => do
+  info: {
+    title: p->navName
+    id: @p:demo-site-123
+    dis: p->dis
+    name: p["name"]
+    val: p["curVal"]
+    key: if (p->id != null) p->id else na()
+  }
+
+  grid: readAll(equip and siteRef == p->id)
+    .find(e => e->ahu == true)
+    .addMeta({checked: true, stale: false})
+    .toGrid
+
+  if (grid != null and p["curVal"] >= 10) do
+    return {info: info, grid: grid}
+  end
+end)
