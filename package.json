@@ -2,7 +2,7 @@
   "name": "axon-wrangler",
   "displayName": "Axon Wrangler",
   "description": "Conservative VS Code helpers for SkySpark Axon.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "pipseedai",
   "private": true,
   "engines": {
