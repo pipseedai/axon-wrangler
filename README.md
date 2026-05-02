@@ -13,6 +13,7 @@ This scaffold provides:
 - conservative TextMate syntax colouring for comments, strings, numbers, refs, keywords/block words, constants, operators/arrows, dict/tag keys, and function/method-ish calls
 - `samples/basic.axon` and `samples/real-shape.axon` as syntax-colour smoke files
 - `Axon Wrangler: Pretty Print` command (`axonWrangler.prettyPrint`)
+- native VS Code Format Document / Format Selection providers for `.axon`
 - a conservative pretty-printer with fixture-based tests
 
 ## Pretty-print v0 limits
@@ -64,6 +65,23 @@ This verifies emitted TextMate scopes for representative comments, strings, numb
 5. Confirm the active VS Code theme visibly distinguishes the scoped shapes that `npm run test:grammar` already verifies: comments, strings, numbers, refs such as `@p:demo-site-123`, block words such as `do`/`end`, constants such as `true`/`false`/`null`, operators/arrows such as `=>`/`->`/`==`, dict/tag keys before `:`, and chained method-ish calls such as `.sort(...)`/`.addMeta(...)`/`.toGrid`.
 
 The v0 grammar is intentionally conservative. It does not fully parse Axon or attempt semantic highlighting; it only provides stable TextMate scopes for the obvious lexical shapes covered by the automated tokenization samples. Visual theme contrast remains a manual VS Code check.
+
+## Native formatting support
+
+Axon Wrangler wires the same conservative pretty-printer into both:
+
+- command palette: `Axon Wrangler: Pretty Print`
+- native VS Code actions: `Format Document` and `Format Selection`
+
+The command remains useful when you want Axon Wrangler's explicit command name. The native formatting providers are for normal editor workflows and format-on-save setups. Both paths intentionally share the same conservative formatting behavior.
+
+Manual Extension Development Host check:
+
+1. Launch the Extension Development Host with `F5`.
+2. Open a `.axon` document with trailing whitespace or extra trailing blank lines.
+3. Run `Format Document` and confirm the whole file is normalized.
+4. Select a smaller range, run `Format Selection`, and confirm only the selected range is normalized.
+5. Run `Axon Wrangler: Pretty Print` and confirm the command still works.
 
 ## Pretty-print testing
 
