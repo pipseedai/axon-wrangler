@@ -1,5 +1,10 @@
 import * as vscode from "vscode";
-import { prettyPrintAxon } from "./prettyPrint";
+import {
+  axonDocumentFormattingProvider,
+  axonRangeFormattingProvider,
+  buildFormattingTextEdit,
+  fullDocumentRange,
+} from "./formatting";
 
 export function activate(context: vscode.ExtensionContext): void {
   const disposable = vscode.commands.registerCommand("axonWrangler.prettyPrint", async () => {
@@ -15,27 +20,32 @@ export function activate(context: vscode.ExtensionContext): void {
     const targetRange = selection.isEmpty
       ? fullDocumentRange(document)
       : new vscode.Range(selection.start, selection.end);
-    const original = document.getText(targetRange);
-    const formatted = prettyPrintAxon(original);
+    const edits = buildFormattingTextEdit(document, targetRange);
 
-    if (formatted === original) {
+    if (edits.length === 0) {
       vscode.window.showInformationMessage("Axon Wrangler: already pretty enough.");
       return;
     }
 
     await editor.edit((editBuilder) => {
-      editBuilder.replace(targetRange, formatted);
+      for (const edit of edits) {
+        editBuilder.replace(edit.range, edit.newText);
+      }
     });
   });
 
-  context.subscriptions.push(disposable);
+  const documentFormatter = vscode.languages.registerDocumentFormattingEditProvider(
+    "axon",
+    axonDocumentFormattingProvider,
+  );
+  const rangeFormatter = vscode.languages.registerDocumentRangeFormattingEditProvider(
+    "axon",
+    axonRangeFormattingProvider,
+  );
+
+  context.subscriptions.push(disposable, documentFormatter, rangeFormatter);
 }
 
 export function deactivate(): void {
   // Nothing to clean up yet.
-}
-
-function fullDocumentRange(document: vscode.TextDocument): vscode.Range {
-  const lastLine = document.lineAt(document.lineCount - 1);
-  return new vscode.Range(new vscode.Position(0, 0), lastLine.range.end);
 }
