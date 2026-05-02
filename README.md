@@ -14,6 +14,22 @@ This scaffold provides:
 - `samples/basic.axon` and `samples/real-shape.axon` as syntax-colour smoke files
 - `Axon Wrangler: Pretty Print` command (`axonWrangler.prettyPrint`)
 - a conservative pretty-printer with fixture-based tests
+- conservative Axon snippets for common verified patterns
+
+## Snippets
+
+Axon Wrangler contributes these `.axon` snippets:
+
+| Prefix | Expands to |
+| --- | --- |
+| `do` | `do` / body / `end` block |
+| `ifdo` | `if (...) do` / `else do` / `end` block |
+| `readHisNum` | `readAll(point and his and kind == "Number")` |
+| `readStreamLimit` | `readAllStream(...).limit(...).collect()` |
+| `hasFallback` | `dict.has("key") ? dict->key : fallback` |
+| `debugType` | `echo("value type: " + value.typeof)` |
+
+Unverified syntax is intentionally excluded. In particular, `try/catch` is deferred until the exact Axon syntax is confirmed against SkySpark docs or a live console.
 
 ## Pretty-print v0 limits
 
