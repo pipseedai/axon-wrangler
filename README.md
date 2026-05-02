@@ -55,6 +55,14 @@ npm run test:grammar
 
 This verifies emitted TextMate scopes for representative comments, strings, numbers, refs, keywords, chained method/function-ish calls, operators/arrows, dict/tag keys before `:`, and known literals. It does not prove theme colours visually distinguish those scopes; use the manual check below only for final eyeballing in a real VS Code theme.
 
+To run the VS Code extension-host smoke test:
+
+```sh
+npm run test:extension
+```
+
+This compiles the extension, launches a disposable VS Code test host via `@vscode/test-electron`, verifies Axon activation for an in-memory `.axon` document, and executes `Axon Wrangler: Pretty Print` against a temporary Axon document. The first run downloads a VS Code test build into `.vscode-test/`.
+
 ## Manual syntax-colour testing
 
 1. Open this repo in VS Code.
@@ -67,13 +75,21 @@ The v0 grammar is intentionally conservative. It does not fully parse Axon or at
 
 ## Pretty-print testing
 
-Automated path:
+Automated pure-logic path:
 
 ```sh
 npm test
 ```
 
 Pretty-print fixture cases live under `test/fixtures/<case>/input.axon` and `expected.axon`. Add a fixture before adding any new formatter rule.
+
+Extension-host smoke path:
+
+```sh
+npm run test:extension
+```
+
+The extension-host smoke covers activation and the registered command path. Keep it lightweight; richer editor behavior still belongs in manual Extension Development Host checks unless it can be tested without making local development brittle.
 
 Manual command path:
 
