@@ -1,0 +1,42 @@
+{
+  "do/end block": {
+    "prefix": "do",
+    "body": [
+      "do",
+      "  ${1:// body}",
+      "end"
+    ],
+    "description": "Axon do/end block"
+  },
+  "if/do/else/end": {
+    "prefix": "ifdo",
+    "body": [
+      "if (${1:condition}) do",
+      "  ${2:// then}",
+      "else do",
+      "  ${3:// else}",
+      "end"
+    ],
+    "description": "Axon if/do/else/end block"
+  },
+  "read numeric history points": {
+    "prefix": "readHisNum",
+    "body": "readAll(point and his and kind == \"Number\")",
+    "description": "Read all numeric history points"
+  },
+  "readAllStream limit collect": {
+    "prefix": "readStreamLimit",
+    "body": "readAllStream(${1:filter}).limit(${2:100}).collect()",
+    "description": "Read records as a stream, limit, then collect"
+  },
+  "dict has fallback": {
+    "prefix": "hasFallback",
+    "body": "${1:dict}.has(\"${2:key}\") ? ${1:dict}->${2:key} : ${3:fallback}",
+    "description": "Check a dict key before reading it, with fallback"
+  },
+  "debug type": {
+    "prefix": "debugType",
+    "body": "echo(\"${1:value type}: \" + ${1:value}.typeof)",
+    "description": "Print the runtime type of a value while debugging"
+  }
+}

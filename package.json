@@ -43,6 +43,12 @@
         "command": "axonWrangler.prettyPrint",
         "title": "Axon Wrangler: Pretty Print"
       }
+    ],
+    "snippets": [
+      {
+        "language": "axon",
+        "path": "./snippets/axon.json"
+      }
     ]
   },
   "scripts": {
