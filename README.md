@@ -14,6 +14,22 @@ This scaffold provides:
 - `samples/basic.axon` and `samples/real-shape.axon` as syntax-colour smoke files
 - `Axon Wrangler: Pretty Print` command (`axonWrangler.prettyPrint`)
 - a conservative pretty-printer with fixture-based tests
+- curated hover help for selected Axon functions and gotchas
+
+## Hover support
+
+Axon Wrangler registers a conservative hover provider for `.axon` files. Hover content is short, source-safe, and intentionally limited to terms already captured in the Axon notes:
+
+- `debugType`
+- `readAll`
+- `readAllStream`
+- `parseFilter`
+- `filterToFunc`
+- `fold`
+- `na`
+- `toSpan`
+
+The hover provider is not a language server and does not inspect SkySpark project state. It only surfaces compact reminders for known functions and gotchas.
 
 ## Pretty-print v0 limits
 

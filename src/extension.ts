@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { axonHoverProvider } from "./hovers";
 import { prettyPrintAxon } from "./prettyPrint";
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -28,7 +29,9 @@ export function activate(context: vscode.ExtensionContext): void {
     });
   });
 
-  context.subscriptions.push(disposable);
+  const hoverDisposable = vscode.languages.registerHoverProvider("axon", axonHoverProvider);
+
+  context.subscriptions.push(disposable, hoverDisposable);
 }
 
 export function deactivate(): void {
