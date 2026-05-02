@@ -1,0 +1,4 @@
+read(site).map(s => do
+  // keep comment text do/end/else
+  note: "do not treat end inside string"
+end)
