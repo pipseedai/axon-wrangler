@@ -1,0 +1,5 @@
+if (site.has("area")) do
+area: site->area
+else do
+area: na
+end

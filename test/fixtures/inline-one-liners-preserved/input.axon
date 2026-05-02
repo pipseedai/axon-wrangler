@@ -1,0 +1,1 @@
+readAll(point).map(p => if (p.has("cur")) p->cur else na)

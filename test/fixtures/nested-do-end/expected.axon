@@ -1,0 +1,7 @@
+readAll(site).map(site => do
+  name: site->dis
+  points: readAll(point and siteRef == site->id).map(p => do
+    id: p->id
+    dis: p->dis
+  end)
+end)
