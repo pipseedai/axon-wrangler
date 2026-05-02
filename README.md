@@ -14,6 +14,19 @@ This scaffold provides:
 - `samples/basic.axon` and `samples/real-shape.axon` as syntax-colour smoke files
 - `Axon Wrangler: Pretty Print` command (`axonWrangler.prettyPrint`)
 - a conservative pretty-printer with fixture-based tests
+- lightweight diagnostics for common Axon footguns
+
+## Diagnostics
+
+Axon Wrangler publishes conservative warning diagnostics for obvious Axon footguns:
+
+- `typeof` usage: use `debugType` for runtime type checks
+- `.toLower()` / `.toUpper()`: use Axon `lower()` / `upper()`
+- `dict.get("key", fallback)`: handle fallback explicitly after `get()`
+- `readAll(...).limit(...)`: use `readAllStream(...).limit(...).collect()` or a DB limit option
+- tautological filters such as `siteRef == siteRef` or `equipRef == equipRef`
+
+The diagnostics are regex/token checks, not a full Axon parser. They intentionally skip matches in `//` comments and quoted strings, and they should stay limited to high-confidence warnings.
 
 ## Pretty-print v0 limits
 

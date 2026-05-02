@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { registerAxonDiagnostics } from "./diagnosticsProvider";
 import { prettyPrintAxon } from "./prettyPrint";
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -27,6 +28,8 @@ export function activate(context: vscode.ExtensionContext): void {
       editBuilder.replace(targetRange, formatted);
     });
   });
+
+  registerAxonDiagnostics(context);
 
   context.subscriptions.push(disposable);
 }
