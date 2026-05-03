@@ -48,13 +48,15 @@
   "scripts": {
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "test": "npm run compile && node --test dist/test/**/*.test.js",
-    "test:grammar": "npm run compile && node --test --test-name-pattern \"Axon TextMate grammar\" dist/test/**/*.test.js",
-    "vscode:prepublish": "npm run compile"
+    "test": "npm run compile && node --test dist/test/*.test.js",
+    "test:grammar": "npm run compile && node --test --test-name-pattern \"Axon TextMate grammar\" dist/test/*.test.js",
+    "vscode:prepublish": "npm run compile",
+    "package:vsix": "npm run test && vsce package --out dist/axon-wrangler-${npm_package_version}.vsix"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
     "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.9.1",
     "typescript": "^5.5.3",
     "vscode-oniguruma": "^2.0.1",
     "vscode-textmate": "^9.3.2"

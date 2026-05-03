@@ -47,6 +47,14 @@ npm test
 
 This compiles TypeScript, runs fixture tests for `prettyPrintAxon`, and runs TextMate tokenization tests against `syntaxes/axon.tmLanguage.json`, including the sanitized real-shaped Axon sample.
 
+Build a local VSIX package:
+
+```sh
+npm run package:vsix
+```
+
+This runs `npm test`, runs the VS Code prepublish compile step, and writes `dist/axon-wrangler-<version>.vsix`.
+
 To run only the syntax-colour tokenization self-test:
 
 ```sh
@@ -64,6 +72,23 @@ This verifies emitted TextMate scopes for representative comments, strings, numb
 5. Confirm the active VS Code theme visibly distinguishes the scoped shapes that `npm run test:grammar` already verifies: comments, strings, numbers, refs such as `@p:demo-site-123`, block words such as `do`/`end`, constants such as `true`/`false`/`null`, operators/arrows such as `=>`/`->`/`==`, dict/tag keys before `:`, and chained method-ish calls such as `.sort(...)`/`.addMeta(...)`/`.toGrid`.
 
 The v0 grammar is intentionally conservative. It does not fully parse Axon or attempt semantic highlighting; it only provides stable TextMate scopes for the obvious lexical shapes covered by the automated tokenization samples. Visual theme contrast remains a manual VS Code check.
+
+## Release/package hygiene
+
+Axon Wrangler is currently marked `private: true` in `package.json` and is packaged for local/private installation, not Marketplace publishing.
+
+The repository intentionally commits `.vscodeignore` so package contents stay explicit. The package excludes source, tests, project-planning docs, Git metadata, generated VSIX files, and development-only directories. The built VSIX includes the compiled extension, language configuration, grammar, samples, and README.
+
+There is no committed `LICENSE` file yet. Until that changes, treat the package as private/no-license rather than open-source distributable.
+
+For a release candidate:
+
+1. Run `npm install` if dependencies are not present.
+2. Run `npm run package:vsix`.
+3. Confirm the command reports the expected included files and writes `dist/axon-wrangler-<version>.vsix`.
+4. Install the generated VSIX in an Extension Development Host or local VS Code profile for manual smoke testing.
+
+GitHub Actions also runs `npm ci` and `npm run package:vsix` on pushes to `main` and pull requests, then uploads the generated VSIX as a workflow artifact.
 
 ## Pretty-print testing
 
